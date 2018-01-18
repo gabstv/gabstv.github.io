@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jobs>
+	<gabs-folio-item id="totemDestroyerDeluxe">
+		<sid>totemDestroyerDeluxe</sid>
+		<short-title>TDD</short-title>
+		<title>Totem Destroyer Deluxe</title>
+		<year>2011</year>
+		<description>
+		This game is way bigger than just a browser game. Totem Destroyer Deluxe is a complete desktop/iPad/iPhone game. With totally new mechanics, HD graphics, awesome music and social features. Scheduled to be launched on: Steam, Apple App Store (Worldwide).
+- Authoring: programming, co-design.
+		</description>
+		<pictute>assets/tdd_750_240.f4v</pictute>
+		<golink>http://www.totemdestroyerdeluxe.com</golink>
+		<ss0>assets/ss/tdd_0.png</ss0>
+		<ss1>assets/ss/tdd_1.png</ss1>
+	</gabs-folio-item>
+	<gabs-folio-item id="theEerieCrookedShow">
+		<sid>theEerieCrookedShow</sid>
+		<short-title>Eerie</short-title>
+		<title>The Eerie Crooked Show</title>
+		<year>2010</year>
+		<description>
+		Another good result of a university collaborative project, The Eerie Crooked Show is a game based on a brazillian movie called "Friendly Fire". For this game, we adapted the script and some cameras that were used in the movie. Since this title is not released yet, you can take a look at the game by the youtube link below.
+- Authoring: programming, shader design.
+		</description>
+		<pictute>assets/eerie_750_240.f4v</pictute>
+		<golink>http://www.youtube.com/watch?v=y7D5Owaj6bw</golink>
+		<ss0>assets/ss/eerie_0.png</ss0>
+		<ss1>assets/ss/eerie_1.png</ss1>
+	</gabs-folio-item>
+	<gabs-folio-item id="cargoDelivery">
+		<sid>cargoDelivery</sid>
+		<short-title>Cargo</short-title>
+		<title>Cargo Delivery</title>
+		<year>2010</year>
+		<description>
+		With different physics based puzzle mechanics and a watercolor based art, Cargo Delivery is the first brazillian game to be a finalist of an international games festival. Cargo Delivery was a finalist on Indiecade 2010!
+- Authoring: programming.
+		</description>
+		<pictute>assets/cargo_750_240.f4v</pictute>
+		<golink>http://www.cargodeliverygame.com</golink>
+		<ss0>assets/ss/cargo_0.png</ss0>
+	</gabs-folio-item>
+	<gabs-folio-item id="sallysCats">
+		<sid>sallysCats</sid>
+		<short-title>Sally</short-title>
+		<title>Sally's Cats</title>
+		<year>2010</year>
+		<description>
+		A experimental game about a witch that lost her cats in the woods.
+- Authoring: programming.
+		</description>
+		<pictute>assets/sally_750_240.f4v</pictute>
+		<golink>http://www.catsinthesky.com</golink>
+		<ss0>assets/ss/sally_0.png</ss0>
+		<ss1>assets/ss/sally_1.png</ss1>
+	</gabs-folio-item>
+	<gabs-folio-item id="annima">
+		<sid>annima</sid>
+		<short-title>Annima</short-title>
+		<title>Annima</title>
+		<year>2009</year>
+		<description>
+		This game was a collaborative university project. We had about four months to adapt a story and make a whole game out of it. In Annima, the player uses ants to make bridges, ropes and balls so he can use and control these different shapes to overcome the obstacles of the game.
+- Authoring: programming, co-design.
+		</description>
+		<pictute>assets/annima_750_240.f4v</pictute>
+		<golink>http://gabs.tv/annima</golink>
+		<ss0>assets/ss/annima_0.png</ss0>
+		<ss1>assets/ss/annima_1.png</ss1>
+	</gabs-folio-item>
+	<gabs-folio-item id="totemDestroyerII">
+		<sid>totemDestroyerII</sid>
+		<short-title>Totem II</short-title>
+		<title>Totem Destroyer II</title>
+		<year>2009</year>
+		<description>
+		The sequel of Totem Destroyer brought some new types of blocks and 50 new levels.
+- Over 20 million plays by the end of 2010!
+- Authoring: programming, design.
+		</description>
+		<pictute>assets/td2_750_240.f4v</pictute>
+		<golink>http://www.catsinthesky.com/games/totem-destroyer-2</golink>
+		<ss0>assets/ss/td2_0.png</ss0>
+	</gabs-folio-item>
+	<gabs-folio-item id="totemDestroyer">
+		<sid>totemDestroyer</sid>
+		<short-title>Totem</short-title>
+		<title>Totem Destroyer</title>
+		<year>2008</year>
+		<description>
+		Totem Destroyer is the first puzzle game of it's kind (removing blocks while making an object not hit the ground at the same time). Back in 08, it "inspired" other developers to make puzzle games based on this mechanics.
+- By the end of 2009, Totem Destroyer was played over 30 million times.
+- Totem Destroyer was chosen the best puzzle game of 2008 by Nonoba Flash Game Awards.
+- On this game, I came up with the programming and everything else (game design, art, etc).
+		</description>
+		<pictute>assets/td1_750_240.f4v</pictute>
+		<golink>http://www.catsinthesky.com/games/totem-destroyer</golink>
+		<ss0>assets/ss/td1_0.png</ss0>
+		<ss1>assets/ss/td1_1.png</ss1>
+	</gabs-folio-item>
+	<gabs-folio-item id="armorPicrossII">
+		<sid>armorPicrossII</sid>
+		<short-title>Picross II</short-title>
+		<title>Armor Picross II</title>
+		<year>2008</year>
+		<description>
+		This sequel of Armor Picross brought many improvements (like saving a partially done puzzle to resume it some other time). There are over 75 puzzles in this version.
+- Authoring: programming, design (with Kenney Vleugels).
+		</description>
+		<pictute>assets/ap2_750_240.f4v</pictute>
+		<golink>http://www.newgrounds.com/portal/view/413577</golink>
+		<ss0>assets/ss/ap2_0.png</ss0>
+		<ss1>assets/ss/ap2_1.png</ss1>
+	</gabs-folio-item>
+	<gabs-folio-item id="armorPicross">
+		<sid>armorPicross</sid>
+		<short-title>Picross</short-title>
+		<title>Armor Picross</title>
+		<year>2007</year>
+		<description>
+		This game is a nonogram/picross game. The goal is to form a picture by filling tiles based on numerical clues. Inspired by Mario Picross, Armor Picross was a game made by me and Kenney Vleugels, while we were making exclusive games for Armor Games.
+- Authoring: programming, co-design.
+		</description>
+		<pictute>assets/ap1_750_240.f4v</pictute>
+		<golink>http://www.newgrounds.com/portal/view/304506</golink>
+		<ss0>assets/ss/ap1_0.png</ss0>
+		<ss1>assets/ss/ap1_1.png</ss1>
+	</gabs-folio-item>
+	<gabs-folio-item id="worldDefense">
+		<sid>worldDefense</sid>
+		<short-title>Defense</short-title>
+		<title>World Defense</title>
+		<year>2006</year>
+		<description>
+		This is a different defense game. Instead buying turrets and placing them on a map, the player spins a flat 2d world to avoid asteroids from hitting the buildings. Made with Kenney Vleugels (kenney.nl).
+- Authoring: programming, co-design.
+		</description>
+		<pictute>assets/wdefense_750_240.f4v</pictute>
+		<golink>http://www.newgrounds.com/portal/view/335293</golink>
+		<ss0>assets/ss/wd_0.png</ss0>
+		<ss1>assets/ss/wd_1.png</ss1>
+	</gabs-folio-item>
+	<gabs-folio-item id="slitz">
+		<sid>slitz</sid>
+		<short-title>Slitz</short-title>
+		<title>Slitz</title>
+		<year>2006</year>
+		<description>
+		Slitz is a 2d space battle game that happens in an arena. This was my first opportunity to make an AI that helps the player out. It can be played solo, with another player or with the AI bot.
+- Authoring: programming, design, sound.
+		</description>
+		<pictute>assets/slitz_750_240.png</pictute>
+		<golink>http://www.newgrounds.com/portal/view/358934</golink>
+	</gabs-folio-item>
+	<gabs-folio-item id="about">
+		<sid>about</sid>
+		<short-title>About</short-title>
+		<title>About Me</title>
+		<year>1987</year>
+		<description>
+		Gabriel Ochsenhofer
+This is my (mostly) programming portfolio. I'm currently the co-owner of Cats in the Sky, a small indie games studio. In this portfolio, you will find the games I made/programmed that I find relevant to point out.
+I started making games professionaly since 2006 (back then, just browser games). Since I started my graduation at Anhembi Morumbi University, I tend to get involved with bigger/non-flash games.
+Contact: gabs@catsinthesky.com
+		</description>
+		<pictute>assets/about_750_240.png</pictute>
+		<golink>http://gabs.tv</golink>
+	</gabs-folio-item>
+</jobs>

@@ -1,0 +1,798 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>gabs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+<script src="js/jquery-1.9.1.min.js"></script>
+<!--[if lt IE 9]>
+  <script src="./js/html5.js"></script>
+<![endif]-->
+<!--[if (gt IE 8) | (IEMobile)]><!-->
+  <link rel="stylesheet" href="./css/unsemantic-grid-responsive.css" />
+<!--<![endif]-->
+<!--[if (lt IE 9) & (!IEMobile)]>
+  <link rel="stylesheet" href="./css/ie.css" />
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="./css/main.css"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+<script type="text/javascript">
+$(document).ready(function(e){
+	$("a[href^='#']").click(function(){
+		$('html, body').animate({
+        	scrollTop: $('[name="' + $(this).attr('href').substr(1) + '"]').offset().top
+    	}, 500);
+    	return false;
+	});
+	setup_portfolio();
+	logoSanityCheck();
+	setInterval(ef_portfolio, 500);
+	setInterval(ef_loader, 100);
+	setInterval(ef_lawbringer, 1010);
+});
+var portfolio_curimg = [];
+var portfolio_imgtimeout = [];
+var portfolio_loadstack = [];
+var lawbringer;
+var lawbringer_visible = false;
+function setup_portfolio()
+{
+	var ntests = $('div.portfolio_ib').size();
+	for(var i = 0; i < ntests; i++)
+	{
+		portfolio_curimg.push(0);
+		portfolio_imgtimeout.push(Math.round(Math.random() * 15.0));
+		var w = $('div.portfolio_ib:eq('+i+')').width();
+		$('div.portfolio_ib:eq('+i+')').height(w);
+	}
+	lawbringer = $('div#lawbringer');
+}
+function ef_portfolio()
+{
+	var ntests = $('div.portfolio_ib').size();
+	/*elmt.each(function(n, element){*/
+	for(var i = 0; i < ntests; i++)
+	{
+		var elmt = $('div.portfolio_ib:eq('+i+')');
+		
+		if(elmt.height() != elmt.width())
+		{
+			elmt.height(elmt.width());
+		}
+		
+		if(isScrolledIntoView(elmt))
+		{
+			portfolio_imgtimeout[i] --;
+			if(portfolio_imgtimeout[i] > 0)
+				continue;
+				
+			var elmtul =  $('ul.portfolio_hib:eq('+i+')');
+				
+			portfolio_curimg[i]++;
+			if(portfolio_curimg[i] >= elmtul.children('li').size()){
+				portfolio_curimg[i] = 0;
+			}
+			
+			var imgli = elmtul.children('li:eq('+portfolio_curimg[i]+')');
+			
+			var objn = {elmt: elmt, id: i, imgli: imgli};
+			portfolio_loadstack.push(objn);
+			
+			portfolio_imgtimeout[i] = 10;
+		}
+	}
+}
+function ef_loader()
+{
+	if(last == null)
+	{
+		if(portfolio_loadstack.length > 0)
+		{
+			loadimg(portfolio_loadstack[0]);
+			portfolio_loadstack.splice(0, 1);
+		}
+	}
+}
+function ef_lawbringer()
+{
+	logoSanityCheck();
+	var docViewTop = $(window).scrollTop();
+    var docViewBottom = docViewTop + $(window).height();
+	if(docViewTop > 100)
+	{
+		if(!lawbringer_visible)
+		{
+			lawbringer.fadeIn('slow', function(){
+				lawbringer_visible = true;
+			});
+		}
+		lawbringer.animate({top: (docViewBottom - lawbringer.height() - 5) + "px"}, 1000);
+	}
+	else
+	{
+		if(lawbringer.visible)
+		{
+			lawbringer.fadeOut('slow', function(){
+				lawbringer_visible = false;
+			});
+		}
+	}
+}
+var last;
+function loadimg(objd)
+{
+	last = {elementn: objd.elmt, id: objd.id, elementli: objd.imgli, image: null, previmage: objd.elmt.children('img:eq(0)')};
+	last.image = $("<img />").attr('src', last.elementli.text()).load(function() {
+			if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+				alert("error while loading image!");
+			}
+			else{
+				last.previmage.fadeOut('fast', function(){
+					/* remove old image from DOM */
+					last.image.attr('class', 'img_fill img_rounded');
+					last.image.attr('style', 'display:none;');
+					last.elementn.html(last.image);
+					last.image.fadeIn('fast', function(){
+						/*nullify last object*/
+						last = null;
+					});
+				});
+			}
+	});
+}
+function isScrolledIntoView(elem)
+{
+    var docViewTop = $(window).scrollTop();
+    var docViewBottom = docViewTop + $(window).height();
+
+    var elemTop = $(elem).offset().top;
+    var elemBottom = elemTop + $(elem).height();
+
+    return ((elemBottom <= docViewBottom + $(elem).height() * 0.75) && (elemTop >= docViewTop - $(elem).height() * 0.75));
+}
+var lastw = -1;
+function logoSanityCheck()
+{
+	if($('div#headl').width() != lastw)
+	{
+		var w4pct = $('div#headl').width() * 0.04;
+		$('div.logotile').height(w4pct);
+		
+		lastw = $('div#headl').width();
+	}
+}
+</script>
+</head>
+<body>
+<div class="gabs_container">
+	<a name="top"></a>
+	<div class="grid-100 mobile-grid-100 header_m">
+    	<div class="grid-25 mobile-grid-25" id="headl">
+            <div class="logotile l12"></div><div class="logotile white"></div><div class="logotile l12"></div><div class="clear"></div>
+            <div class="logotile l12"></div><div class="logotile white"></div><div class="logotile l12"></div><div class="clear"></div>
+            <div class="logotile l12"></div><div class="logotile white"></div><div class="logotile l12"></div><div class="clear"></div>
+            <div class="logotile l12"></div><div class="logotile white"></div><div class="logotile l12"></div><div class="clear"></div>
+            <div class="logotile l5 white"></div><div class="logotile l2"></div><div class="logotile l4 white"></div><div class="logotile"></div><div class="logotile white"></div><div class="logotile"></div><div class="logotile l3 white"></div><div class="logotile"></div><div class="logotile l4 white"></div><div class="logotile l3"></div><div class="clear"></div>
+            <div class="logotile white"></div><div class="logotile l3"></div><div class="logotile white"></div><div class="logotile l5"></div><div class="logotile white"></div><div class="logotile"></div><div class="logotile white"></div><div class="logotile l3"></div><div class="logotile white"></div><div class="logotile"></div><div class="logotile white"></div><div class="logotile l6"></div><div class="clear"></div>
+            <div class="logotile white"></div><div class="logotile l3"></div><div class="logotile white"></div><div class="logotile"></div><div class="logotile l5 white"></div><div class="logotile"></div><div class="logotile white"></div><div class="logotile l3"></div><div class="logotile white"></div><div class="logotile"></div><div class="logotile l5 white"></div><div class="logotile l2"></div><div class="clear"></div>
+            <div class="logotile white"></div><div class="logotile l3"></div><div class="logotile white"></div><div class="logotile"></div><div class="logotile white"></div><div class="logotile l5"></div><div class="logotile white"></div><div class="logotile l3"></div><div class="logotile white"></div><div class="logotile l5"></div><div class="logotile white"></div><div class="logotile l2"></div><div class="clear"></div>
+            <div class="logotile white"></div><div class="logotile l3"></div><div class="logotile white"></div><div class="logotile"></div><div class="logotile white"></div><div class="logotile l3"></div><div class="logotile white"></div><div class="logotile"></div><div class="logotile white"></div><div class="logotile l3"></div><div class="logotile white"></div><div class="logotile"></div><div class="logotile white"></div><div class="logotile l3"></div><div class="logotile white"></div><div class="logotile l2"></div><div class="clear"></div>
+            <!-- [9] 3w 1 1w 1 5w 1 5w 1 5w 2 -->
+            <div class="logotile l3 white"></div>
+            <div class="logotile"></div>
+            <div class="logotile white"></div>
+            <div class="logotile"></div>
+            <div class="logotile l5 white"></div>
+            <div class="logotile"></div>
+            <div class="logotile l5 white"></div>
+            <div class="logotile"></div>
+            <div class="logotile l5 white"></div>
+            <div class="logotile l2"></div>
+            <div class="clear"></div>
+            <!-- [10] 4 1w 20 -->
+            <div class="logotile l4"></div>
+            <div class="logotile white"></div>
+            <div class="logotile l10"></div>
+            <div class="logotile l10"></div>
+            <div class="clear"></div>
+            <!-- [11] 4 1w 20 -->
+            <div class="logotile l4"></div>
+            <div class="logotile white"></div>
+            <div class="logotile l10"></div>
+            <div class="logotile l10"></div>
+            <div class="clear"></div>
+            <!-- [12] 1w 3 1w 20 -->
+            <div class="logotile white"></div>
+            <div class="logotile l3"></div>
+            <div class="logotile white"></div>
+            <div class="logotile l10"></div>
+            <div class="logotile l10"></div>
+            <div class="clear"></div>
+            <div class="logotile l5 white"></div><div class="logotile l10"></div><div class="logotile l10"></div><div class="clear"></div>
+        </div>
+        <div class="grid-75 mobile-grid-75">
+        	<div class="grid-100 mobile-grid-100 quote">
+            	the online portfolio of Gabriel Ochsenhofer
+            </div>
+            <div class="grid-100 mobile-grid-100 header_rt">
+            	<a href="#portfolio">portfolio</a> <a href="#opensource">opensource</a> <a href="#etc">etc</a> <a href="#about">about</a>
+            </div>
+      	</div>
+    </div>
+    <div class="grid-100 mobile-grid-100">
+    	<a name="portfolio"></a>
+    	<h1>portfolio</h1>
+        <!-- ENTRY:Dog Days -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-60 mobile-grid-60">
+            	<div class="grid-65 mobile-grid-65">
+            		<h2>Dog Days</h2>
+            	</div>
+            	<div class="grid-35 mobile-grid-35 portfolio_year">
+            		<h2>2013</h2>
+            	</div>
+                <div class="grid-100 mobile-grid-100">
+            		<p>A complete Unity3D game project. See how a full cross-platform game project is made in Unity, without having to clone the project (to handle different platforms) or even a single scene. See how to take advantage of preprocessor directives.</p>
+                    <p>
+                    - roles: programming, sound design.
+                    </p>
+                    <p>
+                    	<a href="http://www.catsinthesky.com/unity/dogdays">project page</a>
+                    </p>
+                    <p>
+                    	<a href="http://www.kongregate.com/games/catsinthesky/dog-days">game preview (Kongregate)</a>
+                    </p>
+                </div>
+            </div>
+            <div class="grid-40 mobile-grid-40 portfolio_ib">
+            	<img src="img/portfolio/dogdays/01.jpg" class="img_fill img_rounded"/>
+            </div>
+            <ul class="portfolio_hib">
+            	<li>img/portfolio/dogdays/01.jpg</li>
+                <li>img/portfolio/dogdays/02.jpg</li>
+                <li>img/portfolio/dogdays/03.jpg</li>
+                <li>img/portfolio/dogdays/04.jpg</li>
+            </ul>
+        </div>
+        <!-- [END] ENTRY:Dog Days -->
+        <!-- ENTRY:Cargo Delivery (port) -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-60 mobile-grid-60">
+            	<div class="grid-65 mobile-grid-65">
+            		<h2>Cargo Delivery (port)</h2>
+            	</div>
+            	<div class="grid-35 mobile-grid-35 portfolio_year">
+            		<h2>2012</h2>
+            	</div>
+                <div class="grid-100 mobile-grid-100">
+            		<p>The original Cargo Delivery ported from flash to Unity. All graphics were digitally enhanced to double its previous resolution (from 1024x768 to 2048x1536).</p>
+                    <p>
+                    - roles: programming, sound design.
+                    </p>
+                    <p>
+                    	<!--a href="#">[link coming soon (feb 2013)]</a-->
+                    </p>
+                </div>
+            </div>
+            <div class="grid-40 mobile-grid-40 portfolio_ib">
+            	<img src="img/portfolio/cargodeliveryport/01.jpg" class="img_fill img_rounded"/>
+            </div>
+            <ul class="portfolio_hib">
+            	<li>img/portfolio/cargodeliveryport/01.jpg</li>
+                <li>img/portfolio/cargodeliveryport/02.jpg</li>
+                <li>img/portfolio/cargodeliveryport/03.jpg</li>
+                <li>img/portfolio/cargodeliveryport/04.jpg</li>
+                <li>img/portfolio/cargodeliveryport/05.jpg</li>
+            </ul>
+        </div>
+        <!-- [END] ENTRY:Cargo Delivery (port) -->
+        <!-- ENTRY:Texture Tools -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-60 mobile-grid-60">
+            	<div class="grid-65 mobile-grid-65">
+            		<h2>Texture Tools - Unity3D Plugin</h2>
+            	</div>
+            	<div class="grid-35 mobile-grid-35 portfolio_year">
+            		<h2>2012</h2>
+            	</div>
+                <div class="grid-100 mobile-grid-100">
+            		<p>Texture Tools is a plugin that enables you to tweak some aspects of your textures inside Unity. All filters/tasks run in a separate thread, so they don't stop you from working on your game scenes.</p>
+                    <p>
+                    - roles: everything.
+                    </p>
+                    <p>
+                    	<a href="http://forum.unity3d.com/threads/151935-Texture-Tools-Remove-white-halos-resize-tweak-HSL-of-your-textures-inside-Unity!">Unity3D forum page</a>
+                    </p>
+                    <p>
+                    	<a href="https://www.youtube.com/watch?v=nD1h469fB1w">SWF2PNG preview video</a>
+                    </p>
+                    <p>
+                    	<a href="http://u3d.as/content/cats-in-the-sky/texture-tools">asset store link</a>
+                    </p>
+                </div>
+            </div>
+            <div class="grid-40 mobile-grid-40 portfolio_ib">
+            	<img src="img/portfolio/texturetools/01.jpg" class="img_fill img_rounded"/>
+            </div>
+            <ul class="portfolio_hib">
+            	<li>img/portfolio/texturetools/01.jpg</li>
+                <li>img/portfolio/texturetools/02.jpg</li>
+                <li>img/portfolio/texturetools/03.jpg</li>
+                <li>img/portfolio/texturetools/04.jpg</li>
+                <li>img/portfolio/texturetools/05.jpg</li>
+                <li>img/portfolio/texturetools/06.jpg</li>
+            </ul>
+        </div>
+        <!-- [END] ENTRY:Texture Tools -->
+        <!-- ENTRY:Gedanken -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-60 mobile-grid-60">
+            	<div class="grid-65 mobile-grid-65">
+            		<h2>Gedanken</h2>
+            	</div>
+            	<div class="grid-35 mobile-grid-35 portfolio_year">
+            		<h2>2011</h2>
+            	</div>
+                <div class="grid-100 mobile-grid-100">
+            		<p>Gedanken is a 2D platform game with gameplay based on the challenges of physics logic and action. The player controls a small particle with a quantum powered weapon to entangle and manipulate objects in the environment and covers many different planets in a galaxy in search of self-knowledge.</p>
+                    <p>
+                    - roles: programming, design.
+                    </p>
+                    <p>
+                    	<a href="http://www.youtube.com/watch?v=TLeuT1q2O8k">watch the trailer on youtube.com</a>
+                    </p>
+                </div>
+            </div>
+            <div class="grid-40 mobile-grid-40 portfolio_ib">
+            	<img src="img/portfolio/gedanken/01.jpg" class="img_fill img_rounded"/>
+            </div>
+            <ul class="portfolio_hib">
+            	<li>img/portfolio/gedanken/01.jpg</li>
+                <li>img/portfolio/gedanken/02.jpg</li>
+                <li>img/portfolio/gedanken/03.jpg</li>
+                <li>img/portfolio/gedanken/04.jpg</li>
+            </ul>
+        </div>
+        <!-- [END] ENTRY:Gedanken -->
+        <!-- ENTRY:Totem Destroyer Deluxe -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-60 mobile-grid-60">
+            	<div class="grid-65 mobile-grid-65">
+            		<h2>Totem Destroyer Deluxe</h2>
+            	</div>
+            	<div class="grid-35 mobile-grid-35 portfolio_year">
+            		<h2>2011</h2>
+            	</div>
+                <div class="grid-100 mobile-grid-100">
+            		<p>This game is way bigger than just a browser game. Totem Destroyer Deluxe is a complete desktop/iPad/iPhone game. With totally new mechanics, HD graphics, awesome music and social features. Scheduled to be launched on: Steam, Apple App Store (Worldwide).</p>
+                    <p>
+                    - roles: programming.
+                    </p>
+                    <p>
+                    	<a href="http://www.catsinthesky.com/game/totem-destroyer-deluxe">play the demo on catsinthesky.com</a>
+                    </p>
+                </div>
+            </div>
+            <div class="grid-40 mobile-grid-40 portfolio_ib">
+            	<img src="img/portfolio/totemdestroyerdeluxe/01.jpg" class="img_fill img_rounded"/>
+            </div>
+            <ul class="portfolio_hib">
+            	<li>img/portfolio/totemdestroyerdeluxe/01.jpg</li>
+                <li>img/portfolio/totemdestroyerdeluxe/02.jpg</li>
+                <li>img/portfolio/totemdestroyerdeluxe/03.jpg</li>
+                <li>img/portfolio/totemdestroyerdeluxe/04.jpg</li>
+                <li>img/portfolio/totemdestroyerdeluxe/05.jpg</li>
+                <li>img/portfolio/totemdestroyerdeluxe/06.jpg</li>
+                <li>img/portfolio/totemdestroyerdeluxe/07.jpg</li>
+                <li>img/portfolio/totemdestroyerdeluxe/08.jpg</li>
+                <li>img/portfolio/totemdestroyerdeluxe/09.jpg</li>
+                <li>img/portfolio/totemdestroyerdeluxe/10.jpg</li>
+            </ul>
+        </div>
+        <!-- [END] ENTRY:Totem Destroyer Deluxe -->
+        <!-- ENTRY:The Eerie Crooked Show -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-60 mobile-grid-60">
+            	<div class="grid-65 mobile-grid-65">
+            		<h2>The Eerie Crooked Show</h2>
+            	</div>
+            	<div class="grid-35 mobile-grid-35 portfolio_year">
+            		<h2>2010</h2>
+            	</div>
+                <div class="grid-100 mobile-grid-100">
+            		<p>Another good result of a university collaborative project, The Eerie Crooked Show is a game based on a brazillian movie called "Friendly Fire". For this game, we adapted the script and some cameras that were used in the movie. Since this title is not released yet, you can take a look at the game by the youtube link below.</p>
+                    <p>
+                    - roles: programming.
+                    </p>
+                    <p>
+                    	<a href="http://www.youtube.com/watch?v=y7D5Owaj6bw">watch a trailer on youtube.com</a>
+                    </p>
+                </div>
+            </div>
+            <div class="grid-40 mobile-grid-40 portfolio_ib">
+            	<img src="img/portfolio/theeeriecrookedshow/01.jpg" class="img_fill img_rounded"/>
+            </div>
+            <ul class="portfolio_hib">
+            	<li>img/portfolio/theeeriecrookedshow/01.jpg</li>
+                <li>img/portfolio/theeeriecrookedshow/02.jpg</li>
+                <li>img/portfolio/theeeriecrookedshow/03.jpg</li>
+                <li>img/portfolio/theeeriecrookedshow/04.jpg</li>
+            </ul>
+        </div>
+        <!-- [END] ENTRY:The Eerie Crooked Show -->
+        <!-- ENTRY:Cargo Delivery -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-60 mobile-grid-60">
+            	<div class="grid-65 mobile-grid-65">
+            		<h2>Cargo Delivery</h2>
+            	</div>
+            	<div class="grid-35 mobile-grid-35 portfolio_year">
+            		<h2>2010</h2>
+            	</div>
+                <div class="grid-100 mobile-grid-100">
+            		<p>With different physics based puzzle mechanics and a watercolor based art, Cargo Delivery is the first brazillian game to be a finalist of an international games festival. Cargo Delivery was a finalist on Indiecade 2010!</p>
+                    <p>
+                    - roles: programming.
+                    </p>
+                    <p>
+                    	<a href="#">[project link soon! (Feb 2013)]</a>
+                    </p>
+                </div>
+            </div>
+            <div class="grid-40 mobile-grid-40 portfolio_ib">
+            	<img src="img/portfolio/cargodelivery/01.jpg" class="img_fill img_rounded"/>
+            </div>
+            <ul class="portfolio_hib">
+            	<li>img/portfolio/cargodelivery/01.jpg</li>
+                <li>img/portfolio/cargodelivery/02.jpg</li>
+            </ul>
+        </div>
+        <!-- [END] ENTRY:Cargo Delivery -->
+        <!-- ENTRY:Sally's Cats -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-60 mobile-grid-60">
+            	<div class="grid-65 mobile-grid-65">
+            		<h2>Sally's Cats</h2>
+            	</div>
+            	<div class="grid-35 mobile-grid-35 portfolio_year">
+            		<h2>2010</h2>
+            	</div>
+                <div class="grid-100 mobile-grid-100">
+            		<p>A experimental game about a witch that lost her cats in the woods.</p>
+                    <p>
+                    - roles: programming.
+                    </p>
+                    <p>
+                    	<a href="http://www.catsinthesky.com/game/sallys-cats">play Sally's Cats on catsinthesky.com</a>
+                    </p>
+                </div>
+            </div>
+            <div class="grid-40 mobile-grid-40 portfolio_ib">
+            	<img src="img/portfolio/sallyscats/01.jpg" class="img_fill img_rounded"/>
+            </div>
+            <ul class="portfolio_hib">
+            	<li>img/portfolio/sallyscats/01.jpg</li>
+                <li>img/portfolio/sallyscats/02.jpg</li>
+                <li>img/portfolio/sallyscats/03.jpg</li>
+            </ul>
+        </div>
+        <!-- [END] ENTRY:Sally's Cats -->
+        <!-- ENTRY:Annima -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-60 mobile-grid-60">
+            	<div class="grid-65 mobile-grid-65">
+            		<h2>Annima</h2>
+            	</div>
+            	<div class="grid-35 mobile-grid-35 portfolio_year">
+            		<h2>2009</h2>
+            	</div>
+                <div class="grid-100 mobile-grid-100">
+            		<p>This game was a collaborative university project. We had about four months to adapt a story and make a whole game out of it. In Annima, the player uses ants to make bridges, ropes and balls so he can use and control these different shapes to overcome the obstacles of the game.</p>
+                    <p>
+                    - roles: programming, co-design.
+                    </p>
+                    <p>
+                    	<a href="#">[project link soon! (Feb 2013)]</a>
+                    </p>
+                </div>
+            </div>
+            <div class="grid-40 mobile-grid-40 portfolio_ib">
+            	<img src="img/portfolio/annima/01.jpg" class="img_fill img_rounded"/>
+            </div>
+            <ul class="portfolio_hib">
+            	<li>img/portfolio/annima/01.jpg</li>
+                <li>img/portfolio/annima/02.jpg</li>
+                <li>img/portfolio/annima/03.jpg</li>
+                <li>img/portfolio/annima/04.jpg</li>
+                <li>img/portfolio/annima/05.jpg</li>
+            </ul>
+        </div>
+        <!-- [END] ENTRY:Annima -->
+        <!-- ENTRY:Totem Destroyer II -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-60 mobile-grid-60">
+            	<div class="grid-65 mobile-grid-65">
+            		<h2>Totem Destroyer II</h2>
+            	</div>
+            	<div class="grid-35 mobile-grid-35 portfolio_year">
+            		<h2>2009</h2>
+            	</div>
+                <div class="grid-100 mobile-grid-100">
+            		<p>The sequel of Totem Destroyer brought some new types of blocks and 50 new levels.</p>
+                    <p>- Over 20 million plays by the end of 2010!</p>
+                    <p>
+                    - roles: programming, design.
+                    </p>
+                    <p>
+                    	<a href="http://www.catsinthesky.com/game/totem-destroyer-2">play Totem Destroyer II on catsinthesky.com</a>
+                    </p>
+                </div>
+            </div>
+            <div class="grid-40 mobile-grid-40 portfolio_ib">
+            	<img src="img/portfolio/totemdestroyer2/01.jpg" class="img_fill img_rounded"/>
+            </div>
+            <ul class="portfolio_hib">
+            	<li>img/portfolio/totemdestroyer2/01.jpg</li>
+                <li>img/portfolio/totemdestroyer2/02.jpg</li>
+                <li>img/portfolio/totemdestroyer2/03.jpg</li>
+            </ul>
+        </div>
+        <!-- [END] ENTRY:Totem Destroyer II -->
+        <!-- ENTRY:Totem Destroyer -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-60 mobile-grid-60">
+            	<div class="grid-65 mobile-grid-65">
+            		<h2>Totem Destroyer</h2>
+            	</div>
+            	<div class="grid-35 mobile-grid-35 portfolio_year">
+            		<h2>2008</h2>
+            	</div>
+                <div class="grid-100 mobile-grid-100">
+            		<p>Totem Destroyer is the first puzzle game of it's kind (removing blocks while making an object not hit the ground at the same time). Back in 08, it "inspired" other developers to make puzzle games based on this mechanics.</p>
+                    <p>- By the end of 2009, Totem Destroyer was played over 30 million times.</p>
+                    <p>- Totem Destroyer was chosen the best puzzle game of 2008 by Nonoba Flash Game Awards.</p>
+                    <p>
+                    - roles: everything.
+                    </p>
+                    <p>
+                    	<a href="http://www.catsinthesky.com/game/totem-destroyer">play Totem Destroyer on catsinthesky.com</a>
+                    </p>
+                </div>
+            </div>
+            <div class="grid-40 mobile-grid-40 portfolio_ib">
+            	<img src="img/portfolio/totemdestroyer/01.jpg" class="img_fill img_rounded"/>
+            </div>
+            <ul class="portfolio_hib">
+            	<li>img/portfolio/totemdestroyer/01.jpg</li>
+                <li>img/portfolio/totemdestroyer/02.jpg</li>
+                <li>img/portfolio/totemdestroyer/03.jpg</li>
+            </ul>
+        </div>
+        <!-- [END] ENTRY:Totem Destroyer -->
+        <!-- ENTRY:Armor Picross II -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-60 mobile-grid-60">
+            	<div class="grid-65 mobile-grid-65">
+            		<h2>Armor Picross II</h2>
+            	</div>
+            	<div class="grid-35 mobile-grid-35 portfolio_year">
+            		<h2>2008</h2>
+            	</div>
+                <div class="grid-100 mobile-grid-100">
+            		<p>This sequel of Armor Picross brought many improvements (like saving a partially done puzzle to resume it some other time). There are over 75 puzzles in this version.</p>
+                    <p>
+                    - roles: programming, design (with Kenney Vleugels).
+                    </p>
+                    <p>
+                    	<a href="http://www.newgrounds.com/portal/view/413577">play Armor Picross II on newgrounds.com</a>
+                    </p>
+                </div>
+            </div>
+            <div class="grid-40 mobile-grid-40 portfolio_ib">
+            	<img src="img/portfolio/armorpicross2/01.jpg" class="img_fill img_rounded"/>
+            </div>
+            <ul class="portfolio_hib">
+            	<li>img/portfolio/armorpicross2/01.jpg</li>
+                <li>img/portfolio/armorpicross2/02.jpg</li>
+                <li>img/portfolio/armorpicross2/03.jpg</li>
+                <li>img/portfolio/armorpicross2/04.jpg</li>
+                <li>img/portfolio/armorpicross2/05.jpg</li>
+            </ul>
+        </div>
+        <!-- [END] ENTRY:Armor Picross II -->
+        <!-- ENTRY:Armor Picross -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-60 mobile-grid-60">
+            	<div class="grid-65 mobile-grid-65">
+            		<h2>Armor Picross</h2>
+            	</div>
+            	<div class="grid-35 mobile-grid-35 portfolio_year">
+            		<h2>2007</h2>
+            	</div>
+                <div class="grid-100 mobile-grid-100">
+            		<p>This game is a nonogram/picross game. The goal is to form a picture by filling tiles based on numerical clues. Inspired by Mario Picross, Armor Picross was a game made by me and Kenney Vleugels, while we were making exclusive games for Armor Games.</p>
+                    <p>
+                    - roles: programming, co-design.
+                    </p>
+                    <p>
+                    	<a href="http://www.newgrounds.com/portal/view/304506">play Armor Picross on newgrounds.com</a>
+                    </p>
+                </div>
+            </div>
+            <div class="grid-40 mobile-grid-40 portfolio_ib">
+            	<img src="img/portfolio/armorpicross/01.jpg" class="img_fill img_rounded"/>
+            </div>
+            <ul class="portfolio_hib">
+            	<li>img/portfolio/armorpicross/01.jpg</li>
+                <li>img/portfolio/armorpicross/02.jpg</li>
+            </ul>
+        </div>
+        <!-- [END] ENTRY:Armor Picross -->
+        <!-- ENTRY:World Defense -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-60 mobile-grid-60">
+            	<div class="grid-65 mobile-grid-65">
+            		<h2>World Defense</h2>
+            	</div>
+            	<div class="grid-35 mobile-grid-35 portfolio_year">
+            		<h2>2006</h2>
+            	</div>
+                <div class="grid-100 mobile-grid-100">
+            		<p>This is a different defense game. Instead of buying turrets and placing them on a map, the player spins a flat 2d world to avoid asteroids from hitting the buildings. Made with Kenney Vleugels (kenney.nl)</p>
+                    <p>
+                    - roles: programming, co-design.
+                    </p>
+                    <p>
+                    	<a href="http://www.newgrounds.com/portal/view/335293">play World Defense on newgrounds.com</a>
+                    </p>
+                </div>
+            </div>
+            <div class="grid-40 mobile-grid-40 portfolio_ib">
+            	<img src="img/portfolio/worlddefense/01.jpg" class="img_fill img_rounded"/>
+            </div>
+            <ul class="portfolio_hib">
+            	<li>img/portfolio/worlddefense/01.jpg</li>
+                <li>img/portfolio/worlddefense/02.jpg</li>
+                <li>img/portfolio/worlddefense/03.jpg</li>
+                <li>img/portfolio/worlddefense/04.jpg</li>
+                <li>img/portfolio/worlddefense/05.jpg</li>
+                <li>img/portfolio/worlddefense/06.jpg</li>
+            </ul>
+        </div>
+        <!-- [END] ENTRY:World Defense -->
+        <!-- ENTRY:SLITZ -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-60 mobile-grid-60">
+            	<div class="grid-65 mobile-grid-65">
+            		<h2>Slitz</h2>
+            	</div>
+            	<div class="grid-35 mobile-grid-35 portfolio_year">
+            		<h2>2006</h2>
+            	</div>
+                <div class="grid-100 mobile-grid-100">
+            		<p>Slitz is a 2d space battle game that happens in an arena. This was my first opportunity to make an AI that helps the player out. It can be played solo, with another player or with the AI bot.</p>
+                    <p>
+                    - roles: programming, design, sound.
+                    </p>
+                    <p>
+                    	<a href="http://www.newgrounds.com/portal/view/358934">play Slitz on newgrounds.com</a>
+                    </p>
+                </div>
+            </div>
+            <div class="grid-40 mobile-grid-40 portfolio_ib">
+            	<img src="img/portfolio/slitz/01.jpg" class="img_fill img_rounded"/>
+            </div>
+            <ul class="portfolio_hib">
+            	<li>img/portfolio/slitz/01.jpg</li>
+                <li>img/portfolio/slitz/02.jpg</li>
+                <li>img/portfolio/slitz/03.jpg</li>
+                <li>img/portfolio/slitz/04.jpg</li>
+                <li>img/portfolio/slitz/05.jpg</li>
+            </ul>
+        </div>
+        <!-- [END] ENTRY:SLITZ -->
+    </div>
+    <div class="grid-100 mobile-grid-100">
+    	<a name="opensource"></a>
+    	<h1>opensource</h1>
+        <!-- ENTRY:FarseerUnity -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-60 mobile-grid-60">
+            	<div class="grid-100 mobile-grid-100">
+            		<h2>FarseerUnity</h2>
+            	</div>
+                <div class="grid-100 mobile-grid-100">
+            		<p>A port of FarseerPhysics to Unity3D.</p>
+                    <p>
+                    	<a href="http://u3d.as/content/cats-in-the-sky/farseer-for-unity/359">Unity3D asset store page</a>
+                    </p>
+                    <p>
+                    	<a href="http://www.catsinthesky.com/blog/article/2012/03/5/farseer-physics-box2d-and-unity-part-1">tutorials</a>
+                    </p>
+                </div>
+            </div>
+            <div class="grid-40 mobile-grid-40 portfolio_ib">
+            	<img src="img/opensource/farseerunity/01.jpg" class="img_fill img_rounded"/>
+            </div>
+            <ul class="portfolio_hib">
+            	<li>img/opensource/farseerunity/01.jpg</li>
+                <li>img/opensource/farseerunity/02.jpg</li>
+                <li>img/opensource/farseerunity/03.jpg</li>
+            </ul>
+        </div>
+        <!-- [END] ENTRY:FarseerUnity -->
+        <!-- ENTRY:CoreBKP -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-60 mobile-grid-60">
+            	<div class="grid-100 mobile-grid-100">
+            		<h2>CoreBKP</h2>
+            	</div>
+                <div class="grid-100 mobile-grid-100">
+            		<p>CoreBKP makes it easier to backup your personal files and projects. The backup service runs in background, and it's fast. You just have to select a folder (you can also choose to back-up the subfolders) to be backed up, a destination and a schedule then you're done.</p>
+                    <p>
+                    	<a href="http://core.gabs.tv/bkp/">CoreBKP project page</a>
+                    </p>
+                </div>
+            </div>
+            <div class="grid-40 mobile-grid-40 portfolio_ib">
+            	<img src="img/opensource/corebkp/01.jpg" class="img_fill img_rounded"/>
+            </div>
+            <ul class="portfolio_hib">
+            	<li>img/opensource/corebkp/01.jpg</li>
+                <li>img/opensource/corebkp/02.jpg</li>
+                <li>img/opensource/corebkp/03.jpg</li>
+                <li>img/opensource/corebkp/04.jpg</li>
+            </ul>
+        </div>
+        <!-- [END] ENTRY:CoreBKP -->
+    </div>
+    <div class="grid-100 mobile-grid-100">
+    	<a name="etc"></a>
+    	<h1>etc</h1>
+        <!-- ENTRY:Etc -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-100 mobile-grid-100">
+            	<p>
+                    <a href="http://gabs.tv/pflash">previous, &quot;flash sugar&quot; version of my portfolio</a>
+                </p>
+                <p>
+                    <a href="http://kenney.nl">Kenney Vleugels site</a>
+                </p>
+                <p>
+                    <a href="http://www.catsinthesky.com">Cats in the Sky</a>
+                </p>
+            </div>
+        </div>
+        <!-- [END] ENTRY:Etc -->
+    </div>
+    <div class="grid-100 mobile-grid-100">
+    	<a name="about"></a>
+    	<h1>about</h1>
+        <!-- ENTRY:About -->
+        <div class="grid-100 mobile-grid-100 portfolio_entry">
+            <div class="grid-85 mobile-grid-85">
+                <p>This is my (mostly) programming portfolio. I'm currently the co-owner of Cats in the Sky, a small indie games studio. In this portfolio, you will find the games I made/programmed that I find relevant to point out.
+I started making games professionaly since 2006 (back then, just browser games). Since I started my graduation at Anhembi Morumbi University, I tend to get involved with bigger/non-flash games.</p>
+                <p>
+                    <a href="linkedin.com/in/rgabs/">linkedin</a>
+                </p>
+                <p>
+                    <a href="mailto:gabs*at]gabs[dot*tv">contact (email)</a>
+                </p>
+                <p>
+                    <a href="http://www.reddit.com/user/regulargabs/">contact (reddit)</a>
+                </p>
+            </div>
+            <div class="grid-15 mobile-grid-15">
+            	<img src="img/gabs.png" class="img_fill img_rounded"/>
+            </div>
+        </div>
+        <!-- [END] ENTRY:About -->
+    </div>
+    <div id="footer">
+    	/* copyright &copy; 2013-2018 Gabriel Ochsenhofer; all rights reserved; */
+    </div>
+</div>
+<div id="lawbringer"><a href="#top">top</a></div>
+</body>
+</html>
